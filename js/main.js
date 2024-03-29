@@ -46,6 +46,13 @@ function gotDevices(deviceInfos) {
       select.value = values[selectorIndex];
     }
   });
+
+  for (let i = 0; i < audioInputSelect.children.length; i++) {
+    let child = audioInputSelect.children[i];
+    if (child.textContent.indexOf("Loopback") > -1) {
+      child.selected = true;
+    }
+  }
 }
 
 navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
@@ -94,7 +101,7 @@ function start() {
     });
   }
   const audioSource = audioInputSelect.value;
-  const videoSource = videoSelect.value;
+  const videoSource = null; //videoSelect.value;
   const constraints = {
     audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
